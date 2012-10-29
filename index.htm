@@ -2,7 +2,18 @@
 	<head>
 		<title>Tumblr Image Widget</title>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript" src="imgscale.jquery.js"></script>
 		<script src="http://fablabmuc.tumblr.com/api/read/json?type=photo" type="text/javascript"></script>
+		
+		<style>
+			#output {
+				height: 200px;
+				width: 200px;
+				border: 1px solid #999;
+				overflow: hidden;
+			}
+			
+		</style>
 	</head>
 	<body>
 		<h1>Tumblr Image Widget</h1>
@@ -29,6 +40,7 @@
 				$("#output img").fadeOut(fade_duration, function() {
 					$(this).attr("src", photos[id])
 					$(this).load(function(){
+						$(this).imgscale({ scale: "fill", center: true, fade: 0 });
 						$(this).fadeIn(fade_duration);
 						window.setTimeout(function() {
 								nextImage(id+1);
@@ -44,10 +56,10 @@
 			if (tumblr_api_read != null) {
 				$.each(tumblr_api_read.posts, function(key, value) {
 					if (value.photos.length == 0) {
-						photos.push(value["photo-url-250"]);
+						photos.push(value["photo-url-500"]);
 					} else {
 						$.each(value.photos, function(key, value) {
-							photos.push(value["photo-url-250"]);
+							photos.push(value["photo-url-500"]);
 						});
 					}
 				});
