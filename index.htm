@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<h1>Tumblr Image Widget</h1>
-		<div id="output"><img src=""></div>
+		<div id="output"><a href="#" title=""><img src=""></a></div>
 		
 		<script>
 			// ---------------
@@ -37,10 +37,12 @@
 				if (id >= photos.length) {
 					id = 0;
 				}
-				$("#output img").fadeOut(fade_duration, function() {
-					$(this).attr("src", photos[id])
+				$("#output a img").fadeOut(fade_duration, function() {
+					$(this).attr("src", photos[id]["photo-url"]);
+					$("#output a").attr("href", photos[id]["link-url"]);
+					$("#output a").attr("title", photos[id]["caption"]);
 					$(this).load(function(){
-						$(this).imgscale({ scale: "fill", center: true, fade: 0 });
+						$(this).imgscale({ parent: "#output", scale: "fill", center: true, fade: 0 });
 						$(this).fadeIn(fade_duration);
 						window.setTimeout(function() {
 								nextImage(id+1);
@@ -53,13 +55,22 @@
 			var tumblr_api_read = tumblr_api_read || null;
 			var output = "";
 			var photos 	= new Array();
+			var photo;
 			if (tumblr_api_read != null) {
 				$.each(tumblr_api_read.posts, function(key, value) {
 					if (value.photos.length == 0) {
-						photos.push(value["photo-url-500"]);
+						photos.push({
+							"photo-url": value["photo-url-500"],
+							"link-url": value["url-with-slug"],
+							"caption": value["photo-caption"]
+						});
 					} else {
-						$.each(value.photos, function(key, value) {
-							photos.push(value["photo-url-500"]);
+						$.each(value.photos, function(sub_key, sub_value) {
+							photos.push({
+								"photo-url": sub_value["photo-url-500"],
+								"link-url": value["url-with-slug"],
+								"caption": value["photo-caption"]
+							});
 						});
 					}
 				});
