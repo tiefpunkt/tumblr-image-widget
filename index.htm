@@ -7,18 +7,39 @@
 		<script type="text/javascript" src="tumblr-image-widget.js"></script>
 		
 		<style>
-			#output {
+			.output {
 				height: 200px;
 				width: 200px;
 				border: 1px solid #999;
 				overflow: hidden;
+				position:relative;
 			}
 			
+			.output a{position:absolute;z-index:1}
+			.output a.active{z-index:3}
+			
+			.front {
+				z-index: 3;
+			}
+			#loader {
+				height: 240px;
+				width: 240px;
+				text-align: center;
+				background: #fff;
+				z-index: 4;
+				
+			}
+			
+			#loader img {
+				position: absolute;
+				left: 92px;
+				top:95px;
+			}
 		</style>
 	</head>
 	<body>
 		<h1>Tumblr Image Widget</h1>
-		<div id="output"><a href="#" title=""><img src=""></a></div>
+		<div class="output"><div id="loader"><img src="load.gif" alt="activity indicator"></div></div>
 		
 		<script>
 

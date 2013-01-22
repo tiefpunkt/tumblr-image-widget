@@ -11,24 +11,16 @@ const fade_duration = "slow";
 
 // ====================
 
-function nextImage(id) {
-	if (id >= photos.length) {
-		id = 0;
-	}
-	$("#output a img").fadeOut(fade_duration, function() {
-		$(this).attr("src", photos[id]["photo-url"]);
-		$("#output a").attr("href", photos[id]["link-url"]);
-		$("#output a").attr("title", photos[id]["caption"]);
-		$(this).load(function(){
-			$(this).imgscale({ parent: "#output", scale: "fill", center: true, fade: 0 });
-			$(this).fadeIn(fade_duration);
-			window.setTimeout(function() {
-					nextImage(id+1);
-				}, time_between_fades);
-		});
-	});
-	
-}
+function cycleImages(){
+      var $active = $('.output .active');
+      var $next = ($active.next().length > 0) ? $active.next() : $('.output a:first');
+      $next.css('z-index',2);//move the next image up the pile
+      $active.fadeOut(1500,function(){//fade out the top image
+	  $active.css('z-index',1).show().removeClass('active');//reset the z-index and unhide the image
+          $next.css('z-index',3).addClass('active');//make the next image the top one
+      });
+    }
+
 
 var tumblr_api_read = tumblr_api_read || null;
 var photos 	= new Array();
@@ -53,8 +45,20 @@ $(window).load(function () {
 				});
 			}
 		});
-		nextImage(0);
+		var output = "";
+		for (var i=0;i<Math.min(recent_posts_count,photos.length);i++) {
+			output += "<a href=\"" + photos[i]["link-url"] + "\" title=\"" +
+				photos[i]["caption"] + "\""  + (i==0 ? " class=\"active\"": "") + 
+				"><img src=\"" + photos[i]["photo-url"] + "\" class=\"scale\"></a>";
+		}
+		$(".output").html($(".output").html() + output);
+		$(".output img.scale").imgscale({ parent: ".output", scale: "fill", center: true, fade: 0 });
+		$(".output a.active img").load(function(){
+			$(".output #loader").hide();
+			setInterval('cycleImages()', recent_posts_count);
+		})
+		
 	} else {
-		$("#output").html("fail");
+		$(".output").html("error while loading.");
 	}
 });
