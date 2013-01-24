@@ -55,7 +55,7 @@ $(window).load(function () {
 		$(".output img.scale").imgscale({ parent: ".output", scale: "fill", center: true, fade: 0 });
 		$(".output a.active img").load(function(){
 			$(".output #loader").hide();
-			setInterval('cycleImages()', recent_posts_count);
+			setInterval('cycleImages()', time_between_fades);
 		})
 		
 	} else {
