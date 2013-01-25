@@ -3,11 +3,11 @@
 // ---------------
 
 // Number of loaded posts (max. 50)
-const recent_posts_count = 20;
+var recent_posts_count = 20;
 // Time between fades [ms]
-const time_between_fades = 5000;
+var time_between_fades = 5000;
 // Fade duration [ms] or 'fast' or 'slow'
-const fade_duration = "slow";
+var fade_duration = "slow";
 
 // ====================
 
