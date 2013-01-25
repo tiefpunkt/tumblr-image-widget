@@ -1,0 +1,35 @@
+#widget {
+	height: 200px;
+	width: 200px;
+	border: 1px solid #999;
+	overflow: hidden;
+	position:relative;
+}
+
+#output {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	position:relative;
+}
+
+#output a{position:absolute;z-index:1}
+#output a.active{z-index:3}
+
+.front {
+	z-index: 3;
+}
+#loader {
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	background: #fff;
+	z-index: 4;
+	
+}
+
+#loader img {
+	position: absolute;
+	left: 47%;
+	top:49%;
+}

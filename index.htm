@@ -1,48 +1,12 @@
 <html>
 	<head>
 		<title>Tumblr Image Widget</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script type="text/javascript" src="imgscale.jquery.js"></script>
 		<script src="http://fablabmuc.tumblr.com/api/read/json?type=photo" type="text/javascript"></script>
 		<script type="text/javascript" src="tumblr-image-widget.js"></script>		
-		
-		<style>
-			#widget {
-				height: 200px;
-				width: 200px;
-				border: 1px solid #999;
-				overflow: hidden;
-				position:relative;
-			}
-			
-			#output {
-				height: 100%;
-				width: 100%;
-				overflow: hidden;
-				position:relative;
-			}
-			
-			#output a{position:absolute;z-index:1}
-			#output a.active{z-index:3}
-			
-			.front {
-				z-index: 3;
-			}
-			#loader {
-				height: 100%;
-				width: 100%;
-				text-align: center;
-				background: #fff;
-				z-index: 4;
-				
-			}
-			
-			#loader img {
-				position: absolute;
-				left: 47%;
-				top:49%;
-			}
-		</style>
+
 	</head>
 	<body>
 		<h1>Tumblr Image Widget</h1>
